@@ -1,0 +1,6 @@
+.DS_Store
+.vscode/
+attachments/*
+credentials.json
+token.pickle
+venv
