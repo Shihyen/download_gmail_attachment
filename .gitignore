@@ -1,6 +1,10 @@
 .DS_Store
 .vscode/
-attachments/*
+attachments/
+cert/
+.history
+
 credentials.json
 token.pickle
 venv
+

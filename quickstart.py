@@ -9,17 +9,24 @@ import urllib.request as urllib2
 import base64
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly','https://mail.google.com/','https://www.googleapis.com/auth/gmail.modify']
+import os
+
 
 def main():
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
+    work_dir = os.getcwd()
+    cert_dir = '%s/%s' % (work_dir, 'cert')
+    cert_file = '%s/%s' % (cert_dir, 'cw-gmail-oauth-credential.json')
+    token_file = '%s/%s' % (cert_dir, 'token.pickle')
+
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
+    if os.path.exists(token_file):
+        with open(token_file, 'rb') as token:
             creds = pickle.load(token)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
@@ -27,10 +34,10 @@ def main():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
+                cert_file, SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open('token.pickle', 'wb') as token:
+        with open(token_file, 'wb') as token:
             pickle.dump(creds, token)
 
     service = build('gmail', 'v1', credentials=creds)

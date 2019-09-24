@@ -1,5 +1,10 @@
 # download_gmail_attachment
 
+### Init
+
+1. 建立cert, attachments 目錄
+2. 將cw-gmail-oauth-credential.json放到cert底下
+
 ### Reference 
 
     https://developers.google.com/gmail/api/quickstart/python
